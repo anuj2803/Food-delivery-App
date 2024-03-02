@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/NamasteReact",
-      "program": "d:/NamasteReact/build/Debug/outDebug",
+      "cwd": "d:/NamasteReact/src/components",
+      "program": "d:/NamasteReact/src/components/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

@@ -8,7 +8,7 @@ const User=({name})=> {
 //console.log("useEffect")
   },[count]);//array[]
   return (
-    <div className="user-card">
+    <div className="user-card m-4 p-4 ">
          <h1>count={count}</h1>
          {/* <h1>count1:{count1}</h1> */}
 

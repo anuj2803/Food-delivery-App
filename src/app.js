@@ -2,16 +2,21 @@
 // const root=ReactDOM.createRoot(document.getElementById("root"));
 // root.render(heading);
 
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import About from "./components/About";
 import ReactDOM  from "react-dom/client";
 import Header from "./components/header";
 import Body from './components/Body';
-import { createBrowserRouter,RouterProvider,Outlet } from "react-router-dom";
+import { createBrowserRouter,RouterProvider,Outlet,useContext } from "react-router-dom";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
+import userContext from "./Utils/userContext";
+import { Provider } from "react-redux";
+import appStore from "./Utils/appStore";
+import cartSlice from "./Utils/cartSlice";
+import { cart } from "./components/cart";
 // const parent=React.createElement("div",{id:"parent"},[
 // React.createElement("div",{id:"child"},[
 //     React.createElement("h1",{},"i am h1 tag"),
@@ -959,13 +964,29 @@ import Shimmer from "./components/Shimmer";
 
 const Grocery=lazy(()=>import("./components/Grocery"));
 //lazy loading implementation
+const About=lazy(()=>import("./components/About"));
 const AppLayout=()=>{
+  const [userInfo,setUserName]=useState();
+ //authentication
+  useEffect(()=>{
+    const data={
+      name:"Anuj Khedekar",
+  
+    };
+    setUserName(data.name);
+  },[]);
+
+
   return(
+    <Provider store={appStore}>
     <div className="app">
+      <userContext.Provider value={{loginin:userInfo,setUserName}}>
 
       <Header/>
        <Outlet/>
+    </userContext.Provider>
     </div>
+    </Provider>
   );
 };
 const appRouter=createBrowserRouter([
@@ -995,6 +1016,10 @@ const appRouter=createBrowserRouter([
       <Grocery/>
       </Suspense>
     ),
+  },
+  {
+    path:"/cart",
+    element:<cart/>,
   },
   //suspense componant use to handle waiting of component
   {
